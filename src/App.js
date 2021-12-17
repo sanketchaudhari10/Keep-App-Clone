@@ -1,24 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import NewNote from "./components/NewNote";
+import Note from "./components/Note";
+import { useState } from "react";
 
 function App() {
+  const [listnotes, setlistnotes] = useState([]);
+
+  function addnote(cnote) {
+    setlistnotes((oldlist) => {
+      // console.log("in addition => ", oldlist, "->", cnote);
+      if (!oldlist) {
+        oldlist = [];
+      }
+      return [...oldlist, cnote];
+    });
+  }
+
+  function ondelete(indx) {
+    // console.log("in delete ", listnotes);
+    // console.log("to delete ", indx);
+    setlistnotes((old) => {
+      return old.filter((curr, id) => {
+        return id !== indx;
+      });
+    });
+    // console.log("after: ", listnotes);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header></Header>
+      <NewNote passnote={addnote} list={listnotes}></NewNote>
+      <div className="container">
+        <div className="allnotes">
+          {listnotes &&
+            listnotes.map((curvalue, place) => {
+              return (
+                <Note
+                  title={curvalue.title}
+                  content={curvalue.content}
+                  delete={ondelete}
+                  at={place}
+                  key={place}
+                ></Note>
+              );
+            })}
+          {/* <Note></Note>
+          <Note></Note>
+          <Note></Note>
+          <Note></Note>
+          <Note></Note> */}
+        </div>
+      </div>
+      <Footer></Footer>
+    </>
   );
 }
 
