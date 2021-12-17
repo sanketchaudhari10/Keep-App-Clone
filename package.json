@@ -1,7 +1,7 @@
 {
   "name": "keep_app",
   "version": "0.1.0",
-  "homepage": "http://sanketchaudhari10.github.io/Keep-App-Clone",
+  "homepage": "https://sanketchaudhari10.github.io/Keep-App-Clone",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.3",
